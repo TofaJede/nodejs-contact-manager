@@ -45,6 +45,32 @@ db.once("open", function(callback){
 });
 
 // Routes
+app.post('/contacts', (req, res) => {
+  const data = req.body;
+
+  const { name, surname, email, phone, street, streetNum, city } = data
+
+  const newContact = new Contact({
+    name,
+    surname,
+    email,
+    phone,
+    street,
+    streetNum,
+    city
+  })
+
+  newContact.save(function (error) {
+    if (error) {
+      console.error(error)
+    }
+    res.send({
+      success: true,
+      message: 'Contact added!'
+    })
+  })
+});
+
 app.get('/contacts', (req, res) => {
   Contact.find({}, function(error, contacts) {
     if (error) {

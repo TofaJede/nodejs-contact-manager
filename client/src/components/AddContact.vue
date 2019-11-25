@@ -57,7 +57,7 @@ export default {
         streetNum: this.streetNum,
         city: this.city
       })
-      this.$router.push({ name: 'Hello' })
+      this.$router.push({ name: 'Contacts' })
     }
   }
 }
