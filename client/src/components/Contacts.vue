@@ -40,14 +40,13 @@
 </template>
 
 <script>
-// noinspection NpmUsedModulesInstalled
 import { fetchContacts, deleteContact } from '@/services'
 
 export default {
   name: 'contacts',
   data () {
     return {
-      contacts: [] // data before fetch
+      contacts: []
     }
   },
   mounted () {
@@ -56,7 +55,6 @@ export default {
   methods: {
     async getContacts () {
       const response = await fetchContacts()
-      // console.log(response);
       this.contacts = response.data.contacts
     },
     async deleteContact (id) {

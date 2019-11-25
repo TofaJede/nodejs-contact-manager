@@ -53,13 +53,15 @@ export default {
       const response = await getContact({
         id: this.$route.params.id
       })
-      this.name = response.data.name
-      this.surname = response.data.surname
-      this.email = response.data.email
-      this.phone = response.data.phone
-      this.street = response.data.street
-      this.streetNum = response.data.streetNum
-      this.city = response.data.city
+      const { data } = response
+
+      this.name = data.name
+      this.surname = data.surname
+      this.email = data.email
+      this.phone = data.phone
+      this.street = data.street
+      this.streetNum = data.streetNum
+      this.city = data.city
     },
 
     async updateContact () {
