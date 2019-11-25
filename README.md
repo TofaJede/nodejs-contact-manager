@@ -22,6 +22,7 @@ A step by step that tell you how to get a development env running
 ```
 docker-compose up --build
 ```
+App is available at address: http://localhost:8080/
 
 ## Built With
 
