@@ -1,6 +1,7 @@
 <template>
   <div class="contacts">
-    <h1> This page will list all contacts.</h1>
+    <h1 v-if="contacts.length == 0" > This page will list all contacts.</h1>
+    <h1 v-if="contacts.length" > Contacts</h1>
     <router-link v-bind:to="{ name: 'AddContact' }" class="add_post_link">Add contact</router-link>
     <table class="table">
       <thead class="thead-light">
@@ -43,6 +44,7 @@
 import { fetchContacts, deleteContact } from '@/services'
 
 export default {
+
   name: 'contacts',
   data () {
     return {

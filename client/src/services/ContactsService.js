@@ -13,7 +13,11 @@ export const updateContact = (p) => {
 }
 
 export const getContact = (p) => {
-  return Api().get('contact/' + p.id)
+  const res = Api().get('contact/' + p.id)
+  // TODO: How to handle status 500????
+  // if res.status === 500 => res.data.error = true
+  // console.log(res)
+  return res
 }
 
 export const deleteContact = (id) => {

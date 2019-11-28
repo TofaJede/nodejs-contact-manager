@@ -1,48 +1,27 @@
 <template>
   <div>
     <h1>Add new contact</h1>
-    <form v-on:submit.prevent="onSubmit">
-      <div>
-        <input type="text" name="name" placeholder="Name" v-model="name">
-      </div>
-      <div>
-        <input type="text" name="surname" placeholder="Surname" v-model="surname">
-      </div>
-      <div>
-        <input type="email" name="email" placeholder="Email" v-model="email">
-      </div>
-      <div>
-        <input type="tel" name="phone" placeholder="Phone" v-model="phone">
-      </div>
-      <div>
-        <input type="text" name="street" placeholder="Street" v-model="street">
-      </div>
-      <div>
-        <input type="number" name="streetNum" placeholder="Street number" v-model="streetNum">
-      </div>
-      <div>
-        <input type="text" name="city" placeholder="City" v-model="city">
-      </div>
-      <div>
-        <button type="button" class="btn btn-primary" @click="addContact">Add new contact</button>
-      </div>
-    </form>
+    <ContactForm buttonText="Add new contact" :clickAction="addContact" v-model="formData" />
   </div>
 </template>
 
 <script>
 import { addContact } from '@/services'
+import ContactForm from './Form'
 export default {
   name: 'AddContact',
+  components: {ContactForm},
   data () {
     return {
-      name: '',
-      surname: '',
-      email: '',
-      phone: '',
-      street: '',
-      streetNum: '',
-      city: ''
+      formData: {
+        name: '',
+        surname: '',
+        email: '',
+        phone: '',
+        street: '',
+        streetNum: '',
+        city: ''
+      }
     }
   },
   methods: {
@@ -62,3 +41,10 @@ export default {
   }
 }
 </script>
+
+<style>
+  form {
+    margin: 0 auto;
+    width:80%
+  }
+</style>

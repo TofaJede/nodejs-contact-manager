@@ -1,6 +1,7 @@
 <template>
   <div>
     <h1>Edit this contact</h1>
+    <!--
     <form v-on:submit.prevent="onSubmit">
       <div>
         <input type="text" name="name" placeholder="Name" v-model="name">
@@ -26,14 +27,19 @@
       <div>
         <button type="button" class="btn btn-primary" @click="updateContact">Save</button>
       </div>
-    </form>
+    </form> -->
+    <Error v-if="error" message="Cant get data" />
+    <ContactForm v-else buttonText="Save changes" />
   </div>
 </template>
 
 <script>
 import { getContact, updateContact } from '@/services'
+import ContactForm from './Form'
+import Error from './Error'
 export default {
   name: 'EditContact',
+  components: {Error, ContactForm},
   data () {
     return {
       name: '',
@@ -42,7 +48,8 @@ export default {
       phone: '',
       street: '',
       streetNum: '',
-      city: ''
+      city: '',
+      error: false
     }
   },
   mounted () {
@@ -55,13 +62,17 @@ export default {
       })
       const { data } = response
 
-      this.name = data.name
-      this.surname = data.surname
-      this.email = data.email
-      this.phone = data.phone
-      this.street = data.street
-      this.streetNum = data.streetNum
-      this.city = data.city
+      if (data.error === true) {
+        this.error = true
+      } else {
+        this.name = data.name
+        this.surname = data.surname
+        this.email = data.email
+        this.phone = data.phone
+        this.street = data.street
+        this.streetNum = data.streetNum
+        this.city = data.city
+      }
     },
 
     async updateContact () {
@@ -80,3 +91,10 @@ export default {
   }
 }
 </script>
+
+<style>
+  form {
+    margin: 0 auto;
+    width:80%
+  }
+</style>
