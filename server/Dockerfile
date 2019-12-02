@@ -1,4 +1,4 @@
-FROM node:carbon
+FROM node:12.7.0
 
 COPY ./docker/entrypoint.sh /entrypoint/
 
@@ -12,4 +12,3 @@ EXPOSE 8081
 ENTRYPOINT ["/entrypoint/entrypoint.sh"]
 
 CMD ["npm", "start"]
-

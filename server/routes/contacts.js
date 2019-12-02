@@ -1,99 +1,95 @@
 const express = require('express')
 const router = express.Router()
 // Models
-const Contact = require("../models/contacts")
+const Contact = require("../models/contacts") // comment later -- Model
+// Controller
+const contactController = require('../controllers/contact')
 
-router.post('/', (req, res) => {
+router.post('/', async (req, res) => {
+  const data = req.body;
+  const newContact = await contactController.newContact(data)
+
+  if (!newContact){
+    res.send({
+      error: true,
+      success: false
+    })
+  } else {
+    res.send({
+      error: false,
+      success: true,
+      newContact
+    })
+  }
+});
+
+router.get('/', async (req, res) => {
+  const allContactData = await contactController.getAllContacts()
+  if (allContactData){
+    res.send({
+      contacts: allContactData,
+      error: false
+    })
+  } else {
+    res.send({
+      error: true
+    })
+  }
+});
+
+router.get('/:id', async (req, res) => {
+  const { id } = req.params
+  const contactData = await contactController.getContact(id)
+
+  if (contactData){
+    res.send({
+      contact: contactData,
+      error: false
+    })
+  } else {
+    res.send({
+      error: true
+    })
+  }
+})
+
+router.put('/:id', async (req, res) => {
+  const { id } = req.params
   const data = req.body;
 
-  const { name, surname, email, phone, street, streetNum, city } = data
+  const contactUpdated = await contactController.editContact(id, data)
 
-  const newContact = new Contact({
-    name,
-    surname,
-    email,
-    phone,
-    street,
-    streetNum,
-    city
-  })
-
-  newContact.save(function (error) {
-    if (error) {
-      console.error(error)
-    }
+  if (!contactUpdated) {
     res.send({
+      error: true,
+      success: false
+    })
+  } else {
+    res.send({
+      error: false,
       success: true,
-      message: 'Contact added!'
+      contactUpdated
     })
-  })
-});
-
-router.get('/', (req, res) => {
-  Contact.find({}, function(error, contacts) {
-    if (error) {
-      console.error(error)
-      res.status(500).send('Something went wrong :(')
-    } else {
-      res.send({
-        contacts: contacts
-      })
-    }
-  })
-});
-
-router.get('/:id', (req, res) => {
-  Contact.findById(req.params.id, function (error, contact) {
-    if (true) {
-      res.send({
-        error: true
-      })
-    } else {
-      res.send(contact)
-    }
-  })
+  }
 })
 
-router.put('/:id', (req, res) => {
+router.delete('/:id', async (req, res) => {
   const { id } = req.params
-  Contact.findById(id, function (error, contact) {
-    const data = req.body;
-    const { name, surname, email, phone, street, streetNum, city } = data
 
-    if (error) {
-      console.error(error)
-    }
+  const contactDelete = await contactController.deleteContact(id)
 
-    contact.name = name
-    contact.surname = surname
-    contact.email = email
-    contact.phone = phone
-    contact.street = street
-    contact.streetNum = streetNum
-    contact.city = city
-
-    contact.save(function (error) {
-      if (error){
-        console.error(error)
-      }
-      res.send({
-        success: true
-      })
-    })
-  })
-})
-
-router.delete('/:id', (req, res) => {
-  Contact.remove({
-    _id: req.params.id
-  }, function (error) {
-    if (error) {
-      res.send(error)
-    }
+  if (!contactDelete){
     res.send({
-      success: true
+      error: true,
+      success: false
     })
-  })
+  } else {
+    res.send({
+      error: false,
+      success: true,
+      contactDelete
+    })
+  }
 })
 
 module.exports = router

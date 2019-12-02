@@ -9,6 +9,7 @@ services:
       - ./client:/data
     environment:
       - API_URL=http://localhost:8081/
+    command: bash -c "npm install --silent && npm run dev"
 
   server:
     build: ./server

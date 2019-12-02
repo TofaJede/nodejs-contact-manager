@@ -10,8 +10,3 @@ WORKDIR /data/
 EXPOSE 8080
 
 ENTRYPOINT ["/entrypoint/entrypoint.sh"]
-
-CMD ["npm", "start"]
-
-
-
