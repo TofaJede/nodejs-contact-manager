@@ -1,7 +1,7 @@
-var mongoose = require("mongoose");
-var Schema = mongoose.Schema;
+const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
 
-var ContactScheme = new Schema({
+const ContactScheme = new Schema({
     name: String,
     surname: String,
     email: String,
@@ -11,5 +11,5 @@ var ContactScheme = new Schema({
     streetNum: String
 });
 
-var Contact = mongoose.model("Contacts", ContactScheme);
+const Contact = mongoose.model("Contacts", ContactScheme);
 module.exports = Contact;
