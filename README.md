@@ -1,6 +1,7 @@
-# Contact manager for Onio
+# Contact manager
 
-Entry test to Onio s.r.o.
+This is my first app written in NodeJS for learning purposes. 
+I am not really into frontend  development, used Vue for first time as well.
 
 ## Getting Started
 
